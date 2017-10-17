@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.todo.mappers.TodoMapper">
+
+	<insert id="addTodo" parameterType="Todo">
+		insert into tb_todo (todo_no, todo_title, todo_dates, todo_contents)
+		values (todo_seq.nextval, #{title}, #{dates}, #{contents})
+	</insert>
+
+	<select id="getAllTodo" resultType="Todo">
+		select
+			todo_no				no
+			,todo_title				title
+			,todo_dates			dates
+			,todo_contents		contents
+			,todo_completed		completed
+			,todo_deleted		deleted
+		from tb_todo
+		order by todo_no
+	</select>
+	
+	<select id="getTodoByNo" parameterType="int" resultType="Todo">
+		select
+			todo_no				no
+			,todo_title			title
+			,todo_dates			dates
+			,todo_contents		contents
+			,todo_completed		completed
+			,todo_deleted		deleted
+		from tb_todo
+		where todo_no = #{value}
+	</select>
+	
+	<update id="updateTodo" parameterType="Todo">
+		update tb_todo
+		set
+			todo_title = #{title}
+			,todo_dates = #{dates}
+			,todo_contents = #{contents}
+			,todo_completed = #{completed}
+			,todo_deleted = #{deleted}
+		where todo_no = #{no}
+	</update>
+</mapper>
